@@ -4,9 +4,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class State1 {
+public class Stage1 {
     //Constructor
-    public State1() {
+    public Stage1() {
         doors = new ArrayList<Door>();
         windows = new ArrayList<Window>();
     }
@@ -66,12 +66,12 @@ public class State1 {
     }
     public static void main(String [] args) throws IOException {
         if (args.length != 1) {
-            System.out.println("Usage: java State1 <configurationFile.txt>");
+            System.out.println("Usage: java Stage1 <configurationFile.txt>");
             System.exit(-1);
         }
         Scanner in = new Scanner(new File(args[0]));
         //System.out.println("File: " + args[0]);
-        State1 state = new State1();
+        Stage1 state = new Stage1();
         state.readConfiguration(in);
         state.executeUserInteraction(new Scanner(System.in), new PrintStream(new File("output.csv")));
     }
