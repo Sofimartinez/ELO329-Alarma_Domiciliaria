@@ -15,7 +15,10 @@ CLASSES = \
 	MagneticSensor.java \
 	Sensor.java \
 	SwitchState.java \
-	State.java
+	State.java \
+	AePlayWave.java \
+	Central.java \
+	Siren.java
 
 MAIN = Stage2
 
