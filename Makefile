@@ -1,15 +1,15 @@
 JFLAGS = -g
 JC = javac
 JVM= java
-FILE="config.txt"
+FILE= config.txt
 
 .SUFFIXES: .java .class
 
 .java.class:
-	$(JC) $*.java
+	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	Stage2.java \
+	Stage3.java \
 	Door.java \
 	Window.java \
 	MagneticSensor.java \
@@ -18,14 +18,17 @@ CLASSES = \
 	State.java \
 	AePlayWave.java \
 	Central.java \
-	Siren.java
+	Siren.java \
+	Person.java \
+	PIR_Detector.java
 
-MAIN = Stage2
+MAIN = Stage3
 
-classes:
-	$(CLASSES:.java=.class)
+default:classes
 
-run: $(MAIN)
+classes: $(CLASSES:.java=.class)
+
+run: $(MAIN).class
 	$(JVM) $(MAIN) $(FILE)
 
 clean:
