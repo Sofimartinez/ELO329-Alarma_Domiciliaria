@@ -9,7 +9,7 @@ public class Stage2 {
         doors = new ArrayList<Door>();
         windows = new ArrayList<Window>();
     }
-    public void readConfiguration(Scanner in){
+    public void readConfiguration(Scanner in, boolean ring){
         // reading <#_doors> <#_windows> <#_PIRs>
         central = new Central();
         int numDoors = in.nextInt();
@@ -26,9 +26,7 @@ public class Stage2 {
         }
         in.nextLine();
         String soundFile = in.next();
-        System.out.println(soundFile);
-        siren = new Siren(soundFile);
-        System.out.println(siren);
+        siren = new Siren(soundFile, ring);
         central.setSiren(siren);
         in.close();
     }
@@ -66,9 +64,6 @@ public class Stage2 {
                         case 'a':
                             central.arm();
                             break;
-                        case 'p':
-                            central.arm();
-                            break;
                         case 'd':
                             central.disarm();
                             break;
@@ -100,14 +95,17 @@ public class Stage2 {
        out.println();
     }
     public static void main(String [] args) throws IOException {
-        if (args.length != 1) {
+        boolean ring= true;
+        if (args.length < 1) {
             System.out.println("Usage: java Stage1 <configurationFile.txt>");
             System.exit(-1);
+        } else if (args.length > 1) {
+            ring= false;
         }
         Scanner in = new Scanner(new File(args[0]));
         //System.out.println("File: " + args[0]);
         Stage2 stage = new Stage2();
-        stage.readConfiguration(in);
+        stage.readConfiguration(in, ring);
         stage.executeUserInteraction(new Scanner(System.in), new PrintStream(new File("output.csv")));
     }
 

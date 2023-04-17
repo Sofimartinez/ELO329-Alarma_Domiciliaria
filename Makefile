@@ -1,12 +1,12 @@
 JFLAGS = -g
 JC = javac
 JVM= java
-FILE="config.txt"
+FILE= config.txt
 
 .SUFFIXES: .java .class
 
 .java.class:
-	$(JC) $*.java
+	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
 	Stage2.java \
@@ -22,10 +22,11 @@ CLASSES = \
 
 MAIN = Stage2
 
-classes:
-	$(CLASSES:.java=.class)
+default:classes
 
-run: $(MAIN)
+classes: $(CLASSES:.java=.class)
+
+run: $(MAIN).class
 	$(JVM) $(MAIN) $(FILE)
 
 clean:

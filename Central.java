@@ -7,47 +7,43 @@ public class Central {
         siren = null;
     }
     public void arm() {
-        isArmed=checkZoneArm()?true:false;
+        int zonesOpen = ZoneOpen();
+        if( zonesOpen == 0){
+            isArmed=true;
+            System.out.println("Alarma armada");
+        }else{
+            isArmed=false;
+            System.out.println("No se pudo armada la alarma porque hay " + zonesOpen + " zonas abiertas");
+        }
     }
     public void disarm() {
         isArmed=false;
     }
     public void setSiren(Siren s) {
         siren=s;
-        System.out.println(siren);
-        System.out.println(s);
     }
     public void addNewSensor(Sensor s){
         zone0.add(s);
     }
-    public boolean checkZoneArm(){
+    public int ZoneOpen(){
         int zoneOpen = 0;
         for(int i=0; i < zone0.size(); i++){
-            System.out.println(zone0.get(i).getState());
             if(zone0.get(i).getState() == SwitchState.OPEN){
                 zoneOpen++;
                 break;
             }
         }
-        return (zoneOpen > 0)?false:true;
+        return zoneOpen;
     }
 
     public void checkZone(){
-        int zoneOpen = 0;
-        for(int i=0; i < zone0.size(); i++){
-            if(zone0.get(i).getState() == SwitchState.OPEN){
-                zoneOpen++;
-                break;
-            }
-        }
+        int zoneOpen = ZoneOpen();
         if(zoneOpen > 0){
-            System.out.println(zoneOpen + " zonas no cerradas");
             if(isArmed){
                 siren.play();
             }
         }
         else{
-            System.out.println("Todas las zonas cerradas");
             if(siren.getState() == 1){
                 siren.stop();
             }
@@ -60,7 +56,7 @@ public class Central {
     public int getState(){
         return isArmed?1:0;
     }
-    private ArrayList<Sensor> zone0;
+    private ArrayList<Sensor> zone0; //Puerta principal, Puertas y ventanas perimetrales
     private boolean isArmed;
     private Siren siren;
 }
