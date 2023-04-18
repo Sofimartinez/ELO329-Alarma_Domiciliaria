@@ -13,7 +13,7 @@ public class Central {
             System.out.println("Alarma armada");
         }else{
             isArmed=false;
-            System.out.println("No se pudo armada la alarma porque hay " + zonesOpen + " zonas abiertas");
+            System.out.println("No se puede armar la alarma porque hay " + zonesOpen + " zona(s) abierta(s)");
         }
     }
     public void disarm() {
