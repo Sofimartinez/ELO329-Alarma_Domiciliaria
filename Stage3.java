@@ -120,9 +120,13 @@ public class Stage3 {
             }
             //Si se encuentra armada la central se verifica la posición de la persona respecto a los pirs
             if(central.getState() == 1){
-                for(int j=0; j < pirs.size(); j++){
+                for(int j=0; j < pirs.size(); j++) {
+                    System.out.println("---------------------");
+                    System.out.println("pir " + j);
                     pirs.get(j).checkPerson(persons);
+                    System.out.println("---------------------");
                 }
+
             }
             central.checkZone();
         }
