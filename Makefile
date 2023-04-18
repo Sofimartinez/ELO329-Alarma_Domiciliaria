@@ -9,7 +9,7 @@ FILE= config.txt
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	Stage3.java \
+	Stage4.java \
 	Door.java \
 	Window.java \
 	MagneticSensor.java \
@@ -22,14 +22,17 @@ CLASSES = \
 	Person.java \
 	PIR_Detector.java
 
-MAIN = Stage3
+MAIN = Stage4
 
 default:classes
 
 classes: $(CLASSES:.java=.class)
 
-run: $(MAIN).class
+run1: $(MAIN).class
 	$(JVM) $(MAIN) $(FILE)
+
+run2: $(MAIN).class
+	$(JVM) $(MAIN) $(FILE) a
 
 clean:
 	$(RM) *.class

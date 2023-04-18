@@ -1,11 +1,12 @@
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Stage3 {
-    public Stage3() {
+public class Stage4 {
+    public Stage4() {
         doors = new ArrayList<Door>();
         windows = new ArrayList<Window>();
         pirs = new ArrayList<PIR_Detector>();
@@ -18,14 +19,17 @@ public class Stage3 {
         for (int i = 0; i < numDoors; i++) {
             Door d = new Door();
             doors.add(d);
-            central.addNewSensor(d.getMagneticSensor());
-
+            if(i == 0){
+                central.addNewSensorZone0(d.getMagneticSensor());
+            }else{
+                central.addNewSensorZone1(d.getMagneticSensor());
+            }
         }
         int numWindows = in.nextInt();
         for (int j = 0; j < numWindows; j++) {
             Window w = new Window();
             windows.add(w);
-            central.addNewSensor(w.getMagneticSensor());
+            central.addNewSensorZone1(w.getMagneticSensor());
         }
         int numPIR_Detector = in.nextInt();
         int direction, angle, range;
@@ -44,7 +48,7 @@ public class Stage3 {
 
             PIR_Detector pir = new PIR_Detector(x,y,direction,angle,range);
             pirs.add(pir);
-            central.addNewSensor(pir);
+            central.addNewSensorZone2(pir);
         }
         String soundFile = in.next();
         siren = new Siren(soundFile, ring);
@@ -88,6 +92,9 @@ public class Stage3 {
                         case 'a':
                             central.arm();
                             break;
+                        case 'p':
+                            central.armPerimeter();
+                            break;
                         case 'd':
                             central.disarm();
                             break;
@@ -101,19 +108,20 @@ public class Stage3 {
                     persons.add(p);
                     break;
                 case 'p':
+                    i = Integer.parseInt(command.substring(1));
                     parameter = in.next().charAt(0);
                     switch (parameter) {
                         case 'w': //norte
-                            persons.get(0).northMove();
+                            persons.get(i).northMove();
                             break;
                         case 'z': //sur
-                            persons.get(0).southMove();
+                            persons.get(i).southMove();
                             break;
                         case 's': //este
-                            persons.get(0).eastMove();
+                            persons.get(i).eastMove();
                             break;
                         case 'a': //oeste
-                            persons.get(0).westMove();
+                            persons.get(i).westMove();
                             break;
                     }
                     break;
@@ -121,12 +129,8 @@ public class Stage3 {
             //Si se encuentra armada la central se verifica la posición de la persona respecto a los pirs
             if(central.getState() == 1){
                 for(int j=0; j < pirs.size(); j++) {
-                    System.out.println("---------------------");
-                    System.out.println("pir " + j);
                     pirs.get(j).checkPerson(persons);
-                    System.out.println("---------------------");
                 }
-
             }
             central.checkZone();
         }
@@ -169,7 +173,7 @@ public class Stage3 {
         }
         Scanner in = new Scanner(new File(args[0]));
         //System.out.println("File: " + args[0]);
-        Stage3 stage = new Stage3();
+        Stage4 stage = new Stage4();
         stage.readConfiguration(in, ring);
         stage.executeUserInteraction(new Scanner(System.in), new PrintStream(new File("output.csv")));
     }

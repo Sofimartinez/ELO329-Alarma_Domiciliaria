@@ -27,8 +27,6 @@ public class PIR_Detector extends Sensor {
         float inicial_angle = direction_angle - (sensing_angle/2);
         float final_angle =  direction_angle + (sensing_angle/2);
 
-        System.out.println("inicial_angle " + inicial_angle);
-        System.out.println("final_angle " + final_angle);
         boolean detected_person = false;
 
         for (int i=0; i < persons.size(); i++){
@@ -43,11 +41,8 @@ public class PIR_Detector extends Sensor {
             if(angle_person < 0){
                 angle_person = 360 + angle_person;
             }
-            System.out.println("angle_person " + angle_person);
-            System.out.println("range_person " + range_person);
 
             if(angle_person >= inicial_angle && angle_person <= final_angle && range_person <= sensing_range){
-                System.out.println("en la zona");
                 detected_person = true;
                 break; //Dado que se detecto una persona en el rango del detector no se necesita buscar si mas personas estan dentro del area de este PIR
             }
