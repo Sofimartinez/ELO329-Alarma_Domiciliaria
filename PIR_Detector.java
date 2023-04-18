@@ -10,7 +10,7 @@ public class PIR_Detector extends Sensor {
         sensing_range= range;
     }
     {
-        id = nextId++;
+        id = nextId++; 
     }
     public void detectedMovementSwitch() {
         setState(SwitchState.OPEN);
