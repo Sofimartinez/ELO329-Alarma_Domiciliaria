@@ -88,8 +88,8 @@ public class Central {
 
     public void checkZone(){
         int zoneOpen = ZoneOpen(isArmed==2?'p':'a');
-        if(zoneOpen > 0){
-            if(isArmed != 0){
+        if(isArmed != 0){
+            if(zoneOpen > 0 && siren.getState() == 0){
                 siren.play();
             }
         }
