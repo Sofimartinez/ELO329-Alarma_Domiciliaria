@@ -10,7 +10,7 @@ public class Siren {
             exc.printStackTrace(System.out);
         }
         isSounding=false;
-        ring=ring;
+        this.ring=ring;
     }
     public void play(){
         isSounding=true;
@@ -23,8 +23,8 @@ public class Siren {
 
     }
     public void stop(){
+        isSounding=false;
         if(ring){
-            isSounding=false;
             aWave.stopSounding();
         }else{
             System.out.println("Sirena silenciada");
