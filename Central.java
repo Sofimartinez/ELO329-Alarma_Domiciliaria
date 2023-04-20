@@ -30,7 +30,6 @@ public class Central {
         for(int i=0; i < zone0.size(); i++){
             if(zone0.get(i).getState() == SwitchState.OPEN){
                 zoneOpen++;
-                break;
             }
         }
         return zoneOpen;
@@ -38,8 +37,8 @@ public class Central {
 
     public void checkZone(){
         int zoneOpen = ZoneOpen();
-        if(zoneOpen > 0){
-            if(isArmed){
+        if(isArmed){
+            if(zoneOpen > 0){
                 siren.play();
             }
         }
