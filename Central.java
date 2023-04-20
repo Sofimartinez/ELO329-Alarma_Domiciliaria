@@ -31,6 +31,7 @@ public class Central {
         for(int i=0; i < zone0.size(); i++){
             if(zone0.get(i).getState() == SwitchState.OPEN){
                 zoneOpen++;
+                break;
             }
         }
         return zoneOpen;
