@@ -38,7 +38,7 @@ public class Central {
     public void checkZone(){
         int zoneOpen = ZoneOpen();
         if(isArmed){
-            if(zoneOpen > 0){
+            if(zoneOpen > 0 && siren.getState() == 0){
                 siren.play();
             }
         }
