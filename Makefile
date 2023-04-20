@@ -26,8 +26,11 @@ default:classes
 
 classes: $(CLASSES:.java=.class)
 
-run: $(MAIN).class
+run1: $(MAIN).class
 	$(JVM) $(MAIN) $(FILE)
+
+run2: $(MAIN).class
+	$(JVM) $(MAIN) $(FILE) a
 
 clean:
 	$(RM) *.class
