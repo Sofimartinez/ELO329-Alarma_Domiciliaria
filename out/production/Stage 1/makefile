@@ -12,7 +12,7 @@
 JFLAGS = -g
 JC = javac
 JVM= java
-JFX_OPTIONS = --module-path "/Users/sofia/Downloads/javafx-sdk-20.0.1/lib/" --add-modules javafx.controls,javafx.media
+JFX_OPTIONS = --module-path Users/sofia/Downloads/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media
 FILE="config.txt"
 
 #

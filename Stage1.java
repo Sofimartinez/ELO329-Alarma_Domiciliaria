@@ -1,82 +1,35 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
-public class Stage1 {
-    //Constructor
-    public Stage1() {
-        doors = new ArrayList<Door>();
-        windows = new ArrayList<Window>();
-    }
-    public void readConfiguration(Scanner in){
-        // reading <#_doors> <#_windows> <#_PIRs>
-        int numDoors = in.nextInt();
-        for (int i = 0; i < numDoors; i++)
-            doors.add(new Door());
-        int numWindows = in.nextInt();
-        for (int i = 0; i < numWindows; i++){
-            windows.add(new Window());
-        }
-        in.close();
-    }
-    public void executeUserInteraction (Scanner in, PrintStream out){
-        char command, parameter;
-        int step=0;
-        boolean done =false;
-        printHeader(out);
-        while (!done) {
-            printState(step++, out);
-            command = in.next().charAt(0);
-            switch (command) {
-                case 'd':
-                    parameter = in.next().charAt(0);
-                    if (parameter == 'o')
-                        doors.get(0).open();
-                    else
-                        doors.get(0).close();
-                    break;
-                case 'w':
-                    parameter = in.next().charAt(0);
-                    if (parameter == 'o')
-                        windows.get(0).open();
-                    else
-                        windows.get(0).close();
-                    break;
-                case 'x': done=true;   // Added to finish the program
-            }
-        }
-    }
-    public void printHeader(PrintStream out){
-        out.print("Step");
-        for (int i=0; i < doors.size(); i++)
-            out.print("\t"+doors.get(i).getHeader());
-        for (int i=0; i < windows.size(); i++)
-            out.print("\t"+windows.get(i).getHeader());
-        out.println();
-    }
-    public void printState(int step, PrintStream out){
-        out.print(step);
-        for (int i=0; i < doors.size(); i++)
-            out.print("\t"+doors.get(i).getState());
-        for (int i=0; i < windows.size(); i++)
-            out.print("\t"+windows.get(i).getState());
-        out.println();
-    }
-    public static void main(String [] args) throws IOException {
-        if (args.length != 1) {
+public class Stage1 extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+       List<String> args = getParameters().getRaw();   // this way we get access to program's arguments
+        if (args.size() != 1) {
             System.out.println("Usage: java Stage1 <configurationFile.txt>");
             System.exit(-1);
         }
-        Scanner in = new Scanner(new File(args[0]));
-        //System.out.println("File: " + args[0]);
-        Stage1 state = new Stage1();
-        state.readConfiguration(in);
-        state.executeUserInteraction(new Scanner(System.in), new PrintStream(new File("output.csv")));
+        Scanner in = null;
+        try {
+            in = new Scanner(new File(args.get(0)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File: " + args.get(0));
+            System.exit(-1);
+        }
+        House house = new House(in);
+        in.close();
+        Scene scene = new Scene(house, 400, 400);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("T2 Stage 1");
+        primaryStage.show();
     }
-
-    //Atributos
-    private ArrayList<Door> doors;
-    private ArrayList<Window> windows;
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
