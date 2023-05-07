@@ -1,32 +1,49 @@
+/**
+ * A window with its magnetic sensor.
+ */
 public class Window {
-    public Window() {
-        magneticSensor = new MagneticSensor();
-        // las ventanas se crean cerradas y no activadas
-        magneticSensor.putMagnetNearSwitch();
+    public Window(int zone, WindowView view) {
+        magneticSensor = new MagneticSensor(zone);
         state = State.CLOSE;
+        wView = view;
+        wView.addMagneticSensorView(magneticSensor.getView());
+        wView.setWindowModel(this);
     }
-    {
-        id = nextId++;
+    public void changeState() {  // is called when this window's view is clicked
+        switch (state) {
+            case OPEN, OPENING: {
+                state = State.CLOSING;
+                break;
+            }
+            case CLOSE, CLOSING: {
+                state = State.OPENING;
+                magneticSensor.setSensorOpen();
+                break;
+            }
+        }
     }
-    public void open() {
-        state = State.OPEN;
-        magneticSensor.moveMagnetAwayFromSwitch();
+    public void finishMovement() { // is called when this window ends closing or opening
+        switch (state){
+            case OPENING: {
+                state = State.OPEN;
+                magneticSensor.setSensorOpen();
+                break;
+            }
+            case CLOSING:{
+                state = State.CLOSE;
+                magneticSensor.setSensorClose();
+                break;
+            }
+        }
     }
-    public void close() {
-        state = State.CLOSE;
-        magneticSensor.putMagnetNearSwitch();
+    public WindowView getView(){
+        return wView;
     }
-    public String getHeader(){
-        return "w"+id;
+    public State getState(){
+        return state;
     }
-    public int getState(){
-        if (state == State.CLOSE)
-            return 1;
-        else
-            return 0;
-    }
-    private MagneticSensor magneticSensor;
+    private final WindowView wView;
+    private final MagneticSensor magneticSensor;
     private State state;
-    private final int id;
-    private static int nextId=0;
 }
+
