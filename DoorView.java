@@ -63,6 +63,20 @@ public class DoorView extends Group {
         //Magnetic sensor position
         mv.getMagnetView().setX(slidingSheet.getX());
         mv.getMagnetView().setY(slidingSheet.getY()+slidingSheet.getHeight());
+        
+        border.setOnMouseClicked(e -> {
+
+            if(doorModel.getState() == State.CLOSE){
+                mv.getMagnetView().getTransforms().add(new Rotate((-90),170,20));
+
+            }else{
+                mv.getMagnetView().getTransforms().add(new Rotate((+90),170,20));   //En el momento que se haga click en el borde, hará la misma rotación que la puerta
+            }
+
+     
+        });
+        
+        
         //Switch position
         mv.getSwitchView().setY(switchPillar.getBoundsInParent().getHeight());
     }
