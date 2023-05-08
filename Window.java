@@ -2,8 +2,8 @@
  * A window with its magnetic sensor.
  */
 public class Window {
-    public Window(int zone, WindowView view) {
-        magneticSensor = new MagneticSensor(zone);
+    public Window(MagneticSensor sensor, WindowView view) {
+        magneticSensor = sensor;
         state = State.CLOSE;
         wView = view;
         wView.addMagneticSensorView(magneticSensor.getView());
@@ -46,4 +46,3 @@ public class Window {
     private final MagneticSensor magneticSensor;
     private State state;
 }
-

@@ -1,36 +1,30 @@
 public class Door {
-    public Door () {
-        magneticSensor = new MagneticSensor();
-        // las puertas se crean cerradas y no activadas
-        magneticSensor.putMagnetNearSwitch();
+    public Door(MagneticSensor sensor, DoorView view) {
+        magneticSensor = sensor;
         state = State.CLOSE;
+        dView = view;
+        dView.addMagneticSensorView(magneticSensor.getView());
+        dView.setDoorModel(this);
     }
-    {
-        id = nextId++;
+    public void changeState() {
+        switch (state) {  // this is the enhanced version of switch statement. It does not require breaks.
+            case OPEN, OPENING -> {
+                state = State.CLOSE;
+                magneticSensor.setSensorClose();
+            }
+            case CLOSE, CLOSING -> {
+                state = State.OPEN;
+                magneticSensor.setSensorOpen();
+            }
+        }
     }
-    public void open() {
-        state = State.OPEN;
-        magneticSensor.moveMagnetAwayFromSwitch();
+    public DoorView getView(){
+        return dView;
     }
-    public void close() {
-        state = State.CLOSE;
-        magneticSensor.putMagnetNearSwitch();
+    public State getState(){
+        return state;
     }
-    public String getHeader(){
-        return "d"+id;
-    }
-    public int getState(){
-        if (state == State.CLOSE)
-            return 1;
-        else
-            return 0;
-    }
-
-    private MagneticSensor magneticSensor;
+    private final DoorView dView;
+    private final MagneticSensor magneticSensor;
     private State state;
-    private final int id;
-    private static int nextId;
-    static {
-        nextId = 0;
-    }
-}
+ }
