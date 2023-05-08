@@ -32,7 +32,7 @@ public class DoorView extends Group {
         switchPillar.setStroke(Color.BLUE);
         slidingSheet = new Rectangle(10,10,160,10);
         slidingSheet.setFill(Color.BURLYWOOD);
-        Rectangle border = new Rectangle(0,0 ,180, 180);
+        border = new Rectangle(0,0 ,180, 180);
         border.setFill(Color.TRANSPARENT);
         border.setStroke(Color.GRAY);
         border.getStrokeDashArray().addAll(4d,4d );
@@ -60,6 +60,20 @@ public class DoorView extends Group {
         //Magnetic sensor position
         mv.getMagnetView().setX(slidingSheet.getX());
         mv.getMagnetView().setY(slidingSheet.getY()+slidingSheet.getHeight());
+        
+        border.setOnMouseClicked(e -> {
+
+            if(doorModel.getState() == State.CLOSE){
+                mv.getMagnetView().getTransforms().add(new Rotate((-90),170,20));
+
+            }else{
+                mv.getMagnetView().getTransforms().add(new Rotate((+90),170,20));   //En el momento que se haga click en el borde, hará la misma rotación que la puerta
+            }
+
+     
+        });
+        
+        
         //Switch position
         mv.getSwitchView().setY(switchPillar.getBoundsInParent().getHeight());
     }
@@ -67,4 +81,5 @@ public class DoorView extends Group {
     private Door doorModel;
     private Polygon switchPillar;
     private Rectangle slidingSheet;
+    private Rectangle border;
 }
