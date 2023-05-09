@@ -22,6 +22,8 @@ public class MagneticSensorView extends Group {
     public Rectangle getMagnetView(){
         return magnetView;
     }
+
     private final Rectangle switchView;
+
     private final Rectangle magnetView;
 }

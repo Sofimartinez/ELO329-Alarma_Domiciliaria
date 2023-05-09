@@ -36,7 +36,6 @@ public class PersonView extends Group {
             //Se mueve la imagen a donde está el Mouse y además se modifica las propiedades de Person para conectarlo con el PIR
             personaView.setLayoutX(e.getSceneX() + delta.x);
             personaView.setLayoutY(e.getSceneY() + delta.y);
-            System.out.println("Pos x: " + "Pos y: ");
 
             double x = e.getSceneX() - (personaView.getImage().getWidth()/2);
             double y = e.getSceneY() - (personaView.getImage().getHeight()/2);

@@ -7,7 +7,7 @@ public class House extends Pane {
         // reading <#_doors> <#_windows> <#_PIRs>
         int numDoors = in.nextInt();
         int numWindows = in.nextInt();
-        in.nextInt(); // just to conform the first line format
+        int numPIR = in.nextInt();
         for (int i = 0; i < numDoors; i++){
             int x = in.nextInt();
             int y = in.nextInt();
@@ -30,10 +30,22 @@ public class House extends Pane {
             Window window = new Window(sensor, windowView);
             getChildren().add(window.getView());
         }
+        for (int i = 0; i < numPIR; i++){
+            float x = Float.parseFloat(in.next());
+            float y = Float.parseFloat(in.next());
+            int direction_angle = in.nextInt();
+            int sensing_angle = in.nextInt();
+            int sensing_range = in.nextInt();
+            int zone = in.nextInt();
+            PIR_DetectorView pirView= new PIR_DetectorView(x, y, direction_angle, sensing_angle,sensing_range);
+            MagneticSensor sensor = new MagneticSensor(zone);
+            central.addNewSensor(sensor);
+            PIR_Detector pir = new PIR_Detector(sensor,pirView);
+            getChildren().add(pir.getView());
+        }
         PersonView personview = new PersonView();
         Person persona = new Person(personview);
         getChildren().add(persona.getView());
-
         setMinWidth(700);
     }
 }
