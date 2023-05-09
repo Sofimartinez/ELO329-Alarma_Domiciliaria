@@ -54,6 +54,12 @@ public class DoorView extends Group {
 
             doorModel.changeState();
         });
+        setOnMouseEntered( e -> {
+            slidingSheet.setFill(Color.CHOCOLATE);
+        });
+        setOnMouseExited(e ->{
+            slidingSheet.setFill(Color.BURLYWOOD);
+        });
     }
     public void addMagneticSensorView(MagneticSensorView msView){
         placeMagneticSensor(msView);

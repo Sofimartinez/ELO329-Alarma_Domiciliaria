@@ -49,6 +49,12 @@ public class WindowView extends Group {
     }
     public void setWindowModel(Window model) {
         winModel = model;
+        setOnMouseEntered( e -> {
+            slidingGlass.setFill(Color.CYAN);
+        });
+        setOnMouseExited(e ->{
+            slidingGlass.setFill(Color.LIGHTBLUE);
+        });
     }
     public void addMagneticSensorView(MagneticSensorView msView){
         placeMagneticSensor(msView);
