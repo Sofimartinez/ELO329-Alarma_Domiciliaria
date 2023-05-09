@@ -1,21 +1,21 @@
 public class Sensor {
-    public Sensor(){
-        this(SwitchState.OPEN);
+    public Sensor(int z){
+        this(z, SwitchState.CLOSE);
     }
-    public Sensor(SwitchState s){
+    public Sensor(int z, SwitchState s){
+        zone = z;
         state = s;
     }
+
     public SwitchState getState(){
         return state;
+    }
+    public int getZone() {
+        return zone;
     }
     protected void setState(SwitchState s) {
         state = s;
     }
-    public String toString(){
-        if (state == SwitchState.CLOSE)
-            return "1";
-        else
-            return "0";
-    }
     private SwitchState state;
+    private int zone;
 }

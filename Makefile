@@ -9,7 +9,7 @@ FILE="config.txt"
 	$(JC) $*.java
 
 CLASSES = \
-	Stage2.java \
+	Stage3.java \
 	Door.java \
 	Window.java \
 	MagneticSensor.java \
@@ -17,7 +17,7 @@ CLASSES = \
 	SwitchState.java \
 	State.java
 
-MAIN = Stage2
+MAIN = Stage3
 
 classes:
 	$(CLASSES:.java=.class)
