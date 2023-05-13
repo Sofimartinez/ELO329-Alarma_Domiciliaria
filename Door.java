@@ -21,6 +21,9 @@ public class Door {
     public DoorView getView(){
         return dView;
     }
+    public MagneticSensor getMagneticSensor() {
+        return magneticSensor;
+    }
     public State getState(){
         return state;
     }
