@@ -11,16 +11,20 @@ public class SirenView extends Polygon {
                 0d,50d,
                 40d, 80d,
                 40d, 0d);
-        setFill(Color.WHITE);
-        setStroke(Color.RED);
-        timeline = new Timeline(new KeyFrame(Duration.millis(250),e -> stopBlinking()));
+        setFill(Color.web("4FEC4C"));
+        setStroke(Color.GREEN);
+        timeline = new Timeline(new KeyFrame(Duration.millis(250),e -> startBlinking()));
         timeline.setCycleCount(Animation.INDEFINITE);
     }
     public void startBlinking(){
         timeline.play();
+        setFill(Color.web("F03B3B"));
+        setStroke(Color.RED);
     }
     public void stopBlinking() {
         timeline.stop();
+        setFill(Color.web("4FEC4C"));
+        setStroke(Color.GREEN);
     }
     private final Timeline timeline;
 }

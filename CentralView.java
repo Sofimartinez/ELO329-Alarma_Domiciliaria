@@ -22,6 +22,8 @@ public class CentralView extends VBox {
         Button aBtn, pBtn, dBtn;
         aBtn = new Button("A");
         pBtn = new Button("P");
+        //arm perimeter disabled
+        pBtn.setDisable(true);
         dBtn = new Button("D");
         aBtn.setFont(controlFont);
 

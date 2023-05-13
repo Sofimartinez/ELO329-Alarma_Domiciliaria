@@ -1,9 +1,8 @@
 public class Person {
     public Person( PersonView person){
-
-            pView = person;
-            pView.setPersonModel(this);
-        }
+        pView = person;
+        pView.setPersonModel(this);
+    }
     public void verticalMove(double Mouse){
             y = Mouse;
         }
@@ -16,9 +15,12 @@ public class Person {
     public double getY() {
         return y;
     }
+    public PersonView getView(){return pView;}
+
+
     private double x;
     private double y;
     private PersonView pView;
-    public PersonView getView(){return pView;}
+
 
 }

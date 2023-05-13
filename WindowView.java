@@ -45,16 +45,18 @@ public class WindowView extends Group {
             }
             winModel.changeState();
         });
-        getChildren().addAll(origenPillar, switchPillar, fixedGlass,slidingGlass);
-    }
-    public void setWindowModel(Window model) {
-        winModel = model;
+
+        //color change slidingGlass so that the user knows when it can be opened or closed
         setOnMouseEntered( e -> {
             slidingGlass.setFill(Color.CYAN);
         });
         setOnMouseExited(e ->{
             slidingGlass.setFill(Color.LIGHTBLUE);
         });
+        getChildren().addAll(origenPillar, switchPillar, fixedGlass,slidingGlass);
+    }
+    public void setWindowModel(Window model) {
+        winModel = model;
     }
     public void addMagneticSensorView(MagneticSensorView msView){
         placeMagneticSensor(msView);

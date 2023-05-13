@@ -27,7 +27,7 @@ public class Central {
             if(close[0] && close[1] && close[2] ) {
                 state = CentralState.ALL_ARMED;
                 periodicCheck.play();
-                view.setDisplay("armada");
+                view.setDisplay("Armed");
             }
             else view.setDisplay(msg);
         }
@@ -41,7 +41,7 @@ public class Central {
             if (close[0] && close[1]) {
                 state = CentralState.PERIMETER_ARMED;
                 periodicCheck.play();
-                view.setDisplay("perimetro armado");
+                view.setDisplay("Armed perimeter");
             } else view.setDisplay(msg);
         }
     }
@@ -49,7 +49,7 @@ public class Central {
         state = CentralState.DISARMED;
         siren.stop();
         periodicCheck.stop();
-        view.setDisplay("desarmada");
+        view.setDisplay("Disarmed");
     }
     private boolean[] checkCloseZones() {
         boolean[] close = {true, true, true};

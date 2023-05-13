@@ -12,41 +12,48 @@ public class PersonView extends Group {
         makePerson();
     }
     public void makePerson() {
-        Image personaImg = new Image(getClass().getResourceAsStream("person-from-above.png"));
-        personaView = new ImageView(personaImg);
-        //Se ajusta el ancho de la imagen
-        personaView.setFitWidth(personaImg.getWidth()*0.1);
-        personaView.setFitHeight(personaImg.getHeight()*0.1);
+        Ellipse body = new Ellipse(350, 100, 25, 15);
+        body.setFill(Color.ORANGE);
+        body.setStroke(Color.web("F57B50"));
+        Ellipse armLeft = new Ellipse(325, 100, 6,8);
+        armLeft.setFill(Color.ORANGE);
+        armLeft.setStroke(Color.web("F57B50"));
+        Ellipse armRight = new Ellipse(375, 100, 6,8);
+        armRight.setFill(Color.ORANGE);
+        armRight.setStroke(Color.web("F57B50"));
+        Ellipse head = new Ellipse(350, 100, 13,15);
+        head.setFill(Color.BLACK);
+        head.setStroke(Color.BLACK);
+        person = new Group(body, armLeft, armRight, head);
 
-        //Se establece la primera posición de la imagen
-        personaView.setLayoutX(350);
-        personaView.setLayoutY(100);
-        getChildren().add(personaView);
+        makeDraggable(person);
+
+        getChildren().addAll(person);
     }
-    public void  setPersonModel(Person model){
+
+    private void makeDraggable(Group node){
+        //Person Event
         Delta delta = new Delta();
-        persona = model;
-        personaView.setOnMousePressed((e ->{
+
+        node.setOnMousePressed((e ->{
             //Se obtiene la posición del mouse con respecto a la imagen
-            delta.x = personaView.getLayoutX() - e.getSceneX();
-            delta.y = personaView.getLayoutY() - e.getSceneY();
+            delta.x = e.getSceneX() - node.getLayoutX();
+            delta.y = e.getSceneY() - node.getLayoutY();
         }));
 
-        personaView.setOnMouseDragged(e->{
-            //Se mueve la imagen a donde está el Mouse y además se modifica las propiedades de Person para conectarlo con el PIR
-            personaView.setLayoutX(e.getSceneX() + delta.x);
-            personaView.setLayoutY(e.getSceneY() + delta.y);
+        node.setOnMouseDragged(e -> {
+            //Se mueve la vista persona y además se modifica las propiedades de Person para conectarlo con el PIR
+            node.setLayoutX(e.getSceneX() - delta.x);
+            node.setLayoutY(e.getSceneY() - delta.y);
 
-            double x = e.getSceneX() - (personaView.getImage().getWidth()/2);
-            double y = e.getSceneY() - (personaView.getImage().getHeight()/2);
-
-            //Agregar linea de abajo para revisar las posciciones x e y
-            //System.out.println("Pos x: "+ x + " Pos y: " + y);
-            persona.horizontalMove(x);
-            persona.verticalMove(y);
+            personModel.horizontalMove(node.getLayoutX());
+            personModel.verticalMove(node.getLayoutY());
         });
     }
+    public void  setPersonModel(Person model){
+        personModel = model;
+    }
     protected class Delta{double x,y;}
-    private Person persona;
-    private ImageView personaView;
+    private Person personModel;
+    private Group person;
 }
