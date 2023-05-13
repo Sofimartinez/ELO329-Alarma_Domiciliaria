@@ -38,10 +38,7 @@ public class DoorView extends Group {
         border.setStroke(Color.GRAY);
         border.getStrokeDashArray().addAll(4d,4d );
         getChildren().addAll(border);
-        getChildren().addAll(origenPillar, switchPillar,slidingSheet);
-    }
-    public void setDoorModel(Door model) {
-        doorModel = model;
+
         //Slinding sheet Event
         setOnMouseClicked(e -> {
             if(doorModel.getState() == State.CLOSE){
@@ -53,6 +50,11 @@ public class DoorView extends Group {
             }
             doorModel.changeState();
         });
+
+        getChildren().addAll(origenPillar, switchPillar,slidingSheet);
+    }
+    public void setDoorModel(Door model) {
+        doorModel = model;
     }
     public void addMagneticSensorView(MagneticSensorView msView){
         placeMagneticSensor(msView);
