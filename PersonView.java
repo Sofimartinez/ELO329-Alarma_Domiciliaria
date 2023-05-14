@@ -71,8 +71,6 @@ public class PersonView extends Group {
 
             mouse.x = e.getSceneX();
             mouse.y = e.getSceneY();
-
-            System.out.println("Centro del grupo: (" + centerX + ", " + centerY + ")");
         });
 
 
