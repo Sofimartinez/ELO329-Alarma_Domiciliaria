@@ -8,6 +8,7 @@ public class House extends Pane {
         int numDoors = in.nextInt();
         int numWindows = in.nextInt();
         int numPIR = in.nextInt();
+        configInitial = numDoors + numWindows + numPIR ;
         for (int i = 0; i < numDoors; i++){
             int x = in.nextInt();
             int y = in.nextInt();
@@ -48,4 +49,9 @@ public class House extends Pane {
         getChildren().add(person.getView());
         setMinWidth(700);
     }
+
+    public int getConfigInitial(){
+        return configInitial;
+    }
+    private int configInitial;
 }

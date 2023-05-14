@@ -69,6 +69,15 @@ public class Central {
     public void addNewPerson(Person p){
         persons.add(p);
     }
+
+    public void deleteNewPerson(){
+        if (!persons.isEmpty()){
+            persons.remove(persons.size()-1);
+        }
+    }
+    public ArrayList<Person> getPersons(){
+        return persons;
+    }
     private void checkZones(){
         boolean[] close = checkCloseZones();
         switch (state) {
