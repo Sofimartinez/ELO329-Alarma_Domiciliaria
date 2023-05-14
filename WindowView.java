@@ -1,5 +1,8 @@
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -31,6 +34,29 @@ public class WindowView extends Group {
         border.getStrokeDashArray().addAll(4d,4d );
         getChildren().add(border);
 
+        //Menu zone
+        ContextMenu contextMenu = new ContextMenu();
+        Menu parentMenu = new Menu("Change Zone");
+        MenuItem childMenuItem0 = new MenuItem("zone 0");
+        MenuItem childMenuItem1 = new MenuItem("zone 1");
+        MenuItem childMenuItem2 = new MenuItem("zone 2");
+        parentMenu.getItems().addAll(childMenuItem0, childMenuItem1, childMenuItem2);
+        contextMenu.getItems().addAll(parentMenu);
+
+        setOnContextMenuRequested( e -> {
+            contextMenu.show(slidingGlass, e.getScreenX(), e.getScreenY());
+        });
+
+        childMenuItem0.setOnAction(e -> {
+            winModel.getMagneticSensor().setZone(0);
+        });
+        childMenuItem1.setOnAction(e -> {
+            winModel.getMagneticSensor().setZone(1);
+        });
+        childMenuItem2.setOnAction(e -> {
+            winModel.getMagneticSensor().setZone(2);
+        });
+
         //Slinding glass Event
         slidingGlass.setOnMouseClicked(e -> {
             switch (winModel.getState()){
@@ -47,10 +73,10 @@ public class WindowView extends Group {
         });
 
         //color change slidingGlass so that the user knows when it can be opened or closed
-        setOnMouseEntered( e -> {
+        slidingGlass.setOnMouseEntered( e -> {
             slidingGlass.setFill(Color.CYAN);
         });
-        setOnMouseExited(e ->{
+        slidingGlass.setOnMouseExited(e ->{
             slidingGlass.setFill(Color.LIGHTBLUE);
         });
         getChildren().addAll(origenPillar, switchPillar, fixedGlass,slidingGlass);

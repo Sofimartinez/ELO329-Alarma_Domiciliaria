@@ -1,7 +1,12 @@
 import javafx.scene.Group;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContextMenu;
 
 public class DoorView extends Group {
     public DoorView(int x, int y, int angle){
@@ -37,23 +42,50 @@ public class DoorView extends Group {
         border.getStrokeDashArray().addAll(4d,4d );
         getChildren().addAll(border);
 
+        //Menu zone
+        ContextMenu contextMenu = new ContextMenu();
+        Menu parentMenu = new Menu("Change Zone");
+        MenuItem childMenuItem0 = new MenuItem("zone 0");
+        MenuItem childMenuItem1 = new MenuItem("zone 1");
+        MenuItem childMenuItem2 = new MenuItem("zone 2");
+        parentMenu.getItems().addAll(childMenuItem0, childMenuItem1, childMenuItem2);
+        contextMenu.getItems().addAll(parentMenu);
+
+        setOnContextMenuRequested( e -> {
+            contextMenu.show(slidingSheet, e.getScreenX(), e.getScreenY());
+        });
+
+        childMenuItem0.setOnAction(e -> {
+            doorModel.getMagneticSensor().setZone(0);
+        });
+        childMenuItem1.setOnAction(e -> {
+            doorModel.getMagneticSensor().setZone(1);
+        });
+        childMenuItem2.setOnAction(e -> {
+            doorModel.getMagneticSensor().setZone(2);
+        });
+
         //Slinding sheet Event
-        setOnMouseClicked(e -> {
-            if(doorModel.getState() == State.CLOSE){
-                slidingSheet.getTransforms().add(new Rotate((slidingSheet.getRotate()-90),170,20));
-                doorModel.getMagneticSensor().getView().getMagnetView().getTransforms().add(new Rotate((-90),170,20));
-            }else{
-                slidingSheet.getTransforms().add(new Rotate((slidingSheet.getRotate()+90),170,20));
-                doorModel.getMagneticSensor().getView().getMagnetView().getTransforms().add(new Rotate((90),170,20));
+        slidingSheet.setOnMouseClicked(e -> {
+            if(e.getButton() == MouseButton.PRIMARY){
+                contextMenu.hide();
+                if(doorModel.getState() == State.CLOSE){
+                    slidingSheet.getTransforms().add(new Rotate((slidingSheet.getRotate()-90),170,20));
+                    doorModel.getMagneticSensor().getView().getMagnetView().getTransforms().add(new Rotate((-90),170,20));
+                }else{
+                    slidingSheet.getTransforms().add(new Rotate((slidingSheet.getRotate()+90),170,20));
+                    doorModel.getMagneticSensor().getView().getMagnetView().getTransforms().add(new Rotate((90),170,20));
+                }
+                doorModel.changeState();
             }
-            doorModel.changeState();
+
         });
 
         //color change slidingSheet so that the user knows when it can be opened or closed
-        setOnMouseEntered( e -> {
+        slidingSheet.setOnMouseEntered( e -> {
             slidingSheet.setFill(Color.CHOCOLATE);
         });
-        setOnMouseExited(e ->{
+        slidingSheet.setOnMouseExited(e ->{
             slidingSheet.setFill(Color.BURLYWOOD);
         });
 

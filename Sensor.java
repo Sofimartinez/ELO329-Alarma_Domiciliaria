@@ -18,6 +18,10 @@ public abstract class Sensor {
     protected void setState(SwitchState s) {
         state = s;
     }
+
+    public void setZone(int zone){
+        this.zone = zone;
+    }
     private SwitchState state;
     private int zone;
 }

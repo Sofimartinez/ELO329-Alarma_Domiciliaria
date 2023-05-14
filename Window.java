@@ -39,6 +39,9 @@ public class Window {
     public WindowView getView(){
         return wView;
     }
+    public MagneticSensor getMagneticSensor() {
+        return magneticSensor;
+    }
     public State getState(){
         return state;
     }

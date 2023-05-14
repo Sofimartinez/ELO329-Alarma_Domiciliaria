@@ -69,13 +69,13 @@ public class Stage4 extends Application {
 
     private void insertPerson(House house, Central central){
         PersonView personView = new PersonView();
-        Person person = new Person(personView);
+        Person person = new Person(personView, central, house);
         central.addNewPerson(person);
         house.getChildren().add(person.getView());
     }
 
     //Elimina la ultima persona insertada
-    private void deletePerson(House house, Central central){
+    public void deletePerson(House house, Central central){
         central.deleteNewPerson();
         if(house.getConfigInitial() < house.getChildren().size()){
             house.getChildren().remove( house.getChildren().size()-1);

@@ -1,5 +1,8 @@
 import javafx.animation.*;
 import javafx.scene.Group;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
@@ -34,6 +37,30 @@ public class PIR_DetectorView extends Group{
         detector.setType(ArcType.ROUND);
         detector.setFill(Color.web("EE6F6F",0.5));
         detector.setStroke(Color.web("EE6F6F",0.5));
+
+        //Menu zone
+        ContextMenu contextMenu = new ContextMenu();
+        Menu parentMenu = new Menu("Change Zone");
+        MenuItem childMenuItem0 = new MenuItem("zone 0");
+        MenuItem childMenuItem1 = new MenuItem("zone 1");
+        MenuItem childMenuItem2 = new MenuItem("zone 2");
+        parentMenu.getItems().addAll(childMenuItem0, childMenuItem1, childMenuItem2);
+        contextMenu.getItems().addAll(parentMenu);
+
+        setOnContextMenuRequested( e -> {
+            contextMenu.show(pir, e.getScreenX(), e.getScreenY());
+        });
+
+        childMenuItem0.setOnAction(e -> {
+            pirModel.setZone(0);
+        });
+        childMenuItem1.setOnAction(e -> {
+            pirModel.setZone(1);
+        });
+        childMenuItem2.setOnAction(e -> {
+            pirModel.setZone(2);
+        });
+
         getChildren().addAll(pir, detector);
     }
 

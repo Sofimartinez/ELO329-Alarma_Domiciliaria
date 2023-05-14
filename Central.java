@@ -75,6 +75,12 @@ public class Central {
             persons.remove(persons.size()-1);
         }
     }
+
+    public void deleteNewPerson(int index){
+        if (!persons.isEmpty()){
+            persons.remove(index);
+        }
+    }
     public ArrayList<Person> getPersons(){
         return persons;
     }

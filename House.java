@@ -44,7 +44,7 @@ public class House extends Pane {
             getChildren().add(pir.getView());
         }
         PersonView personView = new PersonView();
-        Person person = new Person(personView);
+        Person person = new Person(personView, central,this);
         central.addNewPerson(person);
         getChildren().add(person.getView());
         setMinWidth(700);

@@ -1,7 +1,9 @@
 import javafx.scene.Group;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 
 public class PersonView extends Group {
     public PersonView(){
@@ -21,33 +23,62 @@ public class PersonView extends Group {
         head.setFill(Color.BLACK);
         head.setStroke(Color.BLACK);
         person = new Group(body, armLeft, armRight, head);
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItemDelete = new MenuItem("Delete");
+        contextMenu.getItems().addAll(menuItemDelete);
 
         //Person Event
-        makeDraggable(person);
+        makeDraggable(person, contextMenu);
+        deletePerson(person, contextMenu);
+
+        menuItemDelete.setOnAction( e -> {
+            int indexView = personModel.getHouse().getChildren().indexOf(this);
+            if(indexView != -1){
+                if(!personModel.getHouse().getChildren().isEmpty()){
+                    personModel.getHouse().getChildren().remove(indexView);
+                }
+            }
+            int indexModel = personModel.getCentral().getPersons().indexOf(personModel);
+            if(indexModel != -1){
+                if(!personModel.getCentral().getPersons().isEmpty()) {
+                    personModel.getCentral().deleteNewPerson(indexModel);
+                }
+            }
+        });
+
         getChildren().addAll(person);
     }
 
-    private void makeDraggable(Group node){
+    private void deletePerson(Group person, ContextMenu contextMenu){
+        person.setOnContextMenuRequested( e -> {
+            //pressed button right
+            contextMenu.show(person, e.getScreenX(), e.getScreenY());
+        });
+    }
+
+    private void makeDraggable(Group person, ContextMenu contextMenu){
         Delta delta = new Delta();
 
-        node.setOnMousePressed((e ->{
+        person.setOnMousePressed((e ->{
+            contextMenu.hide();
             //Se obtiene la posición del mouse con respecto a la imagen
-            delta.x = e.getSceneX() - node.getLayoutX();
-            delta.y = e.getSceneY() - node.getLayoutY();
+            delta.x = e.getSceneX() - person.getLayoutX();
+            delta.y = e.getSceneY() - person.getLayoutY();
         }));
 
-        node.setOnMouseDragged(e -> {
+        person.setOnMouseDragged(e -> {
+            contextMenu.hide();
             Double sceneX = e.getSceneX();
             Double sceneY = e.getSceneY();
             //Se mueve la vista persona y además se modifica las propiedades de Person para conectarlo con el PIR
-            node.setLayoutX(sceneX - delta.x);
-            node.setLayoutY(sceneY - delta.y);
+            person.setLayoutX(sceneX - delta.x);
+            person.setLayoutY(sceneY - delta.y);
             personModel.horizontalMove(sceneX-10);
             personModel.verticalMove(sceneY-10);
         });
 
-
     }
+
     public void  setPersonModel(Person model){
         personModel = model;
     }
