@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 /**
-* Clase abstracta que crea un Sensor y es adaptable para las clases MagneticSensor y PIR_Detector.
+* @throws Clase abstracta que crea un Sensor definiendo su zona y estado. Posee métodos para actualizar y retornar los estados (OPEN y CLOSE) al igual que actualizar y retornar las zonas de los objetos.
 * @author Sofía Martínez, Manuel Torres, Florencia Norambuena, Darael Badilla
 */
 public abstract class Sensor {
