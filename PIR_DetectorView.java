@@ -1,11 +1,10 @@
-import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
+
 
 public class PIR_DetectorView extends Group{
     public PIR_DetectorView(float x, float y, int direction_angle, int sensing_angle, int sensing_range){

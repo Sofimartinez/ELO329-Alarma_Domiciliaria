@@ -1,15 +1,14 @@
 JFLAGS = -g
 JC = javac
 JVM= java
+JFX_OPTIONS = --module-path "/path/to/javafx/lib" --add-modules=javafx.controls,javafx.media
 FILE="config.txt"
-
 .SUFFIXES: .java .class
-
 .java.class:
-	$(JC) $*.java
+	$(JC) $(JFX_OPTIONS) $*.java
 
 CLASSES = \
-	Stage3.java \
+	Stage4.java \
 	Door.java \
 	DorrView.java \
 	Window.java \
@@ -30,13 +29,12 @@ CLASSES = \
 	WindowView.java \
 	State.java
 
-MAIN = Stage3
+MAIN = Stage4
 
-classes:
-	$(CLASSES:.java=.class)
+classes: $(CLASSES:.java=.class)
 
-run: $(MAIN)
-	$(JVM) $(MAIN) $(FILE)
+run: $(MAIN).class
+	$(JVM) $(JFX_OPTIONS) $(MAIN) $(FILE)
 
 clean:
 	$(RM) *.class
