@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 /**
-* Clase que crea un PIR y simula su comportamiento.
+* @throws Clase que simula un PIR real cuyos métodos consisten en crear PIR, modificar sus estados, chequear si una persona está en la zona del PIR y retornar el objeto de la clase PIR_DetectorView la cual es el aspecto gráfico del PIR.
 * @author Sofía Martínez, Manuel Torres, Florencia Norambuena, Darael Badilla
 */
 
