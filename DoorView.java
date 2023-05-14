@@ -38,7 +38,7 @@ public class DoorView extends Group {
         getChildren().addAll(border);
 
         //Slinding sheet Event
-        setOnMouseClicked(e -> {
+        slidingSheet.setOnMouseClicked(e -> {
             if(doorModel.getState() == State.CLOSE){
                 slidingSheet.getTransforms().add(new Rotate((slidingSheet.getRotate()-90),170,20));
                 doorModel.getMagneticSensor().getView().getMagnetView().getTransforms().add(new Rotate((-90),170,20));
@@ -48,15 +48,7 @@ public class DoorView extends Group {
             }
             doorModel.changeState();
         });
-
-        //color change slidingSheet so that the user knows when it can be opened or closed
-        setOnMouseEntered( e -> {
-            slidingSheet.setFill(Color.CHOCOLATE);
-        });
-        setOnMouseExited(e ->{
-            slidingSheet.setFill(Color.BURLYWOOD);
-        });
-
+        
         getChildren().addAll(origenPillar, switchPillar,slidingSheet);
     }
     public void setDoorModel(Door model) {
