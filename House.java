@@ -38,14 +38,14 @@ public class House extends Pane {
             int sensing_range = in.nextInt();
             int zone = in.nextInt();
             PIR_DetectorView pirView= new PIR_DetectorView(x, y, direction_angle, sensing_angle,sensing_range);
-            MagneticSensor sensor = new MagneticSensor(zone);
-            central.addNewSensor(sensor);
-            PIR_Detector pir = new PIR_Detector(sensor,pirView);
+            PIR_Detector pir = new PIR_Detector(pirView,zone);
+            central.addNewSensor(pir);
             getChildren().add(pir.getView());
         }
-        PersonView personview = new PersonView();
-        Person persona = new Person(personview);
-        getChildren().add(persona.getView());
+        PersonView personView = new PersonView();
+        Person person = new Person(personView);
+        central.addNewPerson(person);
+        getChildren().add(person.getView());
         setMinWidth(700);
     }
 }

@@ -11,10 +11,23 @@ FILE="config.txt"
 CLASSES = \
 	Stage3.java \
 	Door.java \
+	DorrView.java \
 	Window.java \
 	MagneticSensor.java \
+	MagneticSensorView.java \
 	Sensor.java \
 	SwitchState.java \
+	Central.java \
+	CentralView.java \
+	House.java \
+	Person.java \
+	PersonView.java \
+	PIR_Detecter.java \
+	PIR_DetecterView.java \
+	Siren.java \
+	SirenView.java \
+	Window.java \
+	WindowView.java \
 	State.java
 
 MAIN = Stage3

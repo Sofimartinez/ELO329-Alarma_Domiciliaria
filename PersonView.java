@@ -1,12 +1,8 @@
-import javafx.scene.image.*;
-import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Translate;
-import javafx.util.Duration;
+
+
 public class PersonView extends Group {
     public PersonView(){
         makePerson();
@@ -26,13 +22,12 @@ public class PersonView extends Group {
         head.setStroke(Color.BLACK);
         person = new Group(body, armLeft, armRight, head);
 
+        //Person Event
         makeDraggable(person);
-
         getChildren().addAll(person);
     }
 
     private void makeDraggable(Group node){
-        //Person Event
         Delta delta = new Delta();
 
         node.setOnMousePressed((e ->{
@@ -42,13 +37,16 @@ public class PersonView extends Group {
         }));
 
         node.setOnMouseDragged(e -> {
+            Double sceneX = e.getSceneX();
+            Double sceneY = e.getSceneY();
             //Se mueve la vista persona y además se modifica las propiedades de Person para conectarlo con el PIR
-            node.setLayoutX(e.getSceneX() - delta.x);
-            node.setLayoutY(e.getSceneY() - delta.y);
-
-            personModel.horizontalMove(node.getLayoutX());
-            personModel.verticalMove(node.getLayoutY());
+            node.setLayoutX(sceneX - delta.x);
+            node.setLayoutY(sceneY - delta.y);
+            personModel.horizontalMove(sceneX-10);
+            personModel.verticalMove(sceneY-10);
         });
+
+
     }
     public void  setPersonModel(Person model){
         personModel = model;

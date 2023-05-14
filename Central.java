@@ -9,6 +9,7 @@ public class Central {
     public Central(Siren siren){
         view = new CentralView(this);
         zones = new ArrayList<Sensor>();
+        persons = new ArrayList<Person>();
         state = CentralState.DISARMED;
         this.siren = siren;
         periodicCheck = new Timeline(new KeyFrame(Duration.millis(200),
@@ -54,12 +55,19 @@ public class Central {
     private boolean[] checkCloseZones() {
         boolean[] close = {true, true, true};
         for (Sensor sensor : zones) {
+            if(sensor.getClass().getSimpleName() == "PIR_Detector"){
+                ((PIR_Detector) sensor).checkPerson(persons);
+            }
             close[sensor.getZone()] &= (sensor.getState() == SwitchState.OPEN) ? false : true ;
         }
         return close;
     }
     public void addNewSensor(Sensor s){
         zones.add(s);
+    }
+
+    public void addNewPerson(Person p){
+        persons.add(p);
     }
     private void checkZones(){
         boolean[] close = checkCloseZones();
@@ -80,6 +88,7 @@ public class Central {
         ALL_ARMED, PERIMETER_ARMED, DISARMED
     }
     private final ArrayList<Sensor> zones;
+    private final ArrayList<Person> persons;
     private CentralState state;
     private final Siren siren;
     private final Timeline periodicCheck;

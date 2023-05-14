@@ -6,13 +6,17 @@ import javafx.scene.transform.Rotate;
 
 public class PIR_DetectorView extends Group{
     public PIR_DetectorView(float x, float y, int direction_angle, int sensing_angle, int sensing_range){
-        float angle = direction_angle + direction_angle - (sensing_angle/2);
-        makePIRViewWithoutSensor(sensing_angle, sensing_range, angle);
+        this.x = x;
+        this.y = y;
+        this.sensing_angle = sensing_angle;
+        this.sensing_range = sensing_range;
+        this.direction_angle = direction_angle;
+        makePIRViewWithoutSensor(sensing_angle, sensing_range, direction_angle);
         setRotate(direction_angle);  // to rotate at the geometric center.
         relocate(x,y);
     }
 
-    private void makePIRViewWithoutSensor(int sensing_angle, int sensing_range, float angle){
+    private void makePIRViewWithoutSensor(int sensing_angle, int sensing_range, int direction_angle){
         Polygon pir = new Polygon();
         pir.getPoints().addAll(0d,0d,
                 30d, 0d,
@@ -25,7 +29,7 @@ public class PIR_DetectorView extends Group{
         detector.setCenterY(0);
         detector.setRadiusX(sensing_range);
         detector.setRadiusY(sensing_range);
-        detector.setStartAngle(angle);
+        detector.setStartAngle(direction_angle + direction_angle - (sensing_angle/2));
         detector.setLength(sensing_angle);
         detector.setType(ArcType.ROUND);
         detector.setFill(Color.web("EE6F6F",0.5));
@@ -37,15 +41,29 @@ public class PIR_DetectorView extends Group{
         pirModel= model;
     }
 
-    public void addMagneticSensorView(MagneticSensorView msView){
-        placeMagneticSensor(msView);
-        getChildren().add(msView);
+    public float getDirection_angle(){
+        return direction_angle;
     }
-    private void placeMagneticSensor( MagneticSensorView mv){
 
+    public int getSensing_angle(){
+        return sensing_angle;
+    }
+    public int getSensing_range(){
+        return sensing_range;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getX(){
+        return x;
     }
 
     private PIR_Detector pirModel;
-    private Polygon pir;
-    private Arc detector;
+    private float x;
+    private float y;
+    private float direction_angle; //Angulo de orientacion
+    private int sensing_angle; //Angulo de deteccion
+    private int sensing_range; //Rango de deteccion
 }

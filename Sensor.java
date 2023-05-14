@@ -1,4 +1,6 @@
-public class Sensor {
+import java.util.ArrayList;
+
+public abstract class Sensor {
     public Sensor(int z){
         this(z, SwitchState.CLOSE);
     }
