@@ -56,7 +56,7 @@ public class PersonView extends Group {
         });
     }
 
-    private void makeDraggable(Group person, ContextMenu contextMenu){
+    /*private void makeDraggable(Group person, ContextMenu contextMenu){
         Delta delta = new Delta();
 
         person.setOnMousePressed((e ->{
@@ -76,6 +76,39 @@ public class PersonView extends Group {
             personModel.horizontalMove(sceneX-10);
             personModel.verticalMove(sceneY-10);
         });
+
+    }*/
+    private void makeDraggable(Group node, ContextMenu contextMenu){
+        //Delta delta = new Delta();
+        Mouse mouse = new Mouse();
+
+        node.setOnMousePressed((e ->{
+            //Se obtiene la posición del mouse con respecto a la imagen
+            mouse.x = e.getSceneX();
+            mouse.y = e.getSceneY();
+
+            //System.out.println(delta.x);
+        }));
+
+        node.setOnMouseDragged(e -> {
+            contextMenu.hide();
+            double deltaX = e.getSceneX() - mouse.x;
+            double deltaY = e.getSceneY() - mouse.y;
+
+            node.setLayoutX(node.getLayoutX() + deltaX);
+            node.setLayoutY(node.getLayoutY() + deltaY);
+
+            double centerX = node.getBoundsInParent().getMinX() + node.getBoundsInParent().getWidth()/2;
+            double centerY = node.getBoundsInParent().getMinY() + node.getBoundsInParent().getHeight()/2;
+            personModel.horizontalMove(centerX);
+            personModel.verticalMove(centerY);
+
+            mouse.x = e.getSceneX();
+            mouse.y = e.getSceneY();
+
+            //System.out.println("Centro del grupo: (" + centerX + ", " + centerY + ")");
+        });
+
 
     }
 
