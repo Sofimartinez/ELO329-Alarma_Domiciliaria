@@ -5,7 +5,6 @@ import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
 
 public class DoorView extends Group {
