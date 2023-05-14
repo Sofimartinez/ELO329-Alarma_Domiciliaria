@@ -45,6 +45,13 @@ Stage1.java, House.java, MagneticSensor.java, MagneticSensorView.java, Sensor.ja
 * Etapa 3 y 4:
 
     No es necesario incluir ningún módulo adicional de javaFX, por lo que se sigue el mismo patrón descrito para la etapa 2 cambiando el nombre del archivo que contiene el método `main` de acuerdo con la etapa es decir `Stage3` o `Stage4`, cada etapa se encuentra en la rama *Stage3-Tarea2* y *Stage4-Tarea2* respectivamente.
+    
+## Ejecutar en IntelliJ
+1. Importar el projecto a IntelliJ: Cada etapa debe ser ejecutada por separado, por lo que para analizar cada etapa se deben abrir las carpetas de cada etapa por separado en la opción `File>Open`.
+2. Agregar las librerías del JDK: Una vez se tenga abierta la carpeta de alguna etapa, en la carpeta `src` que en este caso tiene el nombre de, por ejemplo, `ELO329-Alarma_Domiciliaria-Stage4-Tarea2`, se debe precionar clic derecho y seleccionar la opción `Open Module Settings`. En este punto se deben agregar las librerías disponibles en la carpeta `lib` disponible en la ubicación del archivo del JDK.
+3. Configuraciones de arranque: Para ejecutar correctamente alguna etapa se debe configurar el arranque en el apartado `Build`. Una vez dentro, se selecciona el JDK con el cual se va a trabajar (idealmente JDK 20), luego se agraga la opción de `Add VM options` en donde se debe ingresar la dirección de las librerías de JavaFX con el siguiente formato `--module-path "{path}\javafx-sdk-20.0.1\lib" --add-modules javafx.controls,javafx.media`. Luego, se selecciona la clase fuente que en estos casos serían `Stage1`, `Stage2`, `Stage3` o `Stage4`, para luego finalizar agregando el nombre del archivo `config.txt` a la casilla de `Program Parameters`.
+4. Ubicar el archivo `config.txt`: Antes de iniciar el programa, se debe mover el archivo `config.txt` fuera de la carpeta sourse para que IntelliJ lo pueda reconocer.
+Una vez se completan estos pasos, se puede ejecutar el programa en IntelliJ.
 
 ## Bonus realizado
 
